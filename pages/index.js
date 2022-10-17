@@ -3,15 +3,15 @@ import { HeroBanner, Footer, FooterBanner } from "../components";
 import { client } from "../lib/client";
 
 const Home = ({ products, bannerData }) => {
-  console.log(products);
+  console.log(bannerData);
   return (
     <>
-      <HeroBanner />
+      <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
       <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many varient</p>
       </div>
-      {/* <div className="products-container">{products?.map((product) => product)}</div> */}
+      <div className="products-container">{products?.map((product) => product.name)}</div>
       <FooterBanner />
       <Footer />
     </>
