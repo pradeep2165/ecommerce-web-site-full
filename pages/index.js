@@ -1,6 +1,9 @@
 import React from "react";
 import { HeroBanner, Footer, FooterBanner } from "../components";
-const Home = () => {
+import { client } from "../lib/client";
+
+const Home = ({ products, bannerData }) => {
+  console.log(products);
   return (
     <>
       <HeroBanner />
@@ -8,11 +11,21 @@ const Home = () => {
         <h2>Best Selling Products</h2>
         <p>Speakers of many varient</p>
       </div>
-      <div className="products-container">{["product1", "product2", "product3", "product4"].map((product) => product)}</div>
+      {/* <div className="products-container">{products?.map((product) => product)}</div> */}
       <FooterBanner />
       <Footer />
     </>
   );
 };
 
+export const getServerSideProps = async () => {
+  const query = '*[_type == "product"]';
+  const products = await client.fetch(query);
+
+  const bannerQuery = '*[_type == "banner"]';
+  const bannerData = await client.fetch(bannerQuery);
+  return {
+    props: { products, bannerData },
+  };
+};
 export default Home;
