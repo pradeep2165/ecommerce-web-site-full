@@ -1,13 +1,13 @@
 import React from "react";
 import { useStateContext } from "../context/StateContext";
-import { AiOutlineLeft, AiOutlineMinus, AiOutlinePlus, AiOutlineShopping } from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineMinus, AiOutlinePlus, AiOutlineShopping, onRemove } from "react-icons/ai";
 
 import { TiDeleteOutline } from "react-icons/ti";
 import Link from "next/link";
 import { urlFor } from "../lib/client";
 
 const Cart = () => {
-  const { setShowCart, cartItems, totalPrice } = useStateContext();
+  const { setShowCart, cartItems, totalPrice, onRemove } = useStateContext();
   return (
     <div className="cart-wrapper">
       <div className="cart-container">
@@ -49,7 +49,7 @@ const Cart = () => {
                         </span>
                       </p>
                     </div>
-                    <button className="remove-item">
+                    <button className="remove-item" onClick={() => onRemove(item)}>
                       <TiDeleteOutline />
                     </button>
                   </div>

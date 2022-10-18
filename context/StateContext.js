@@ -29,6 +29,14 @@ export const StateContext = ({ children }) => {
     }
   };
 
+  const onRemove = (product) => {
+    const foundProduct = cartItems.find((item) => item._id === product._id);
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
+    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity);
+    setCartitems(newCartItems);
+  };
+
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -39,7 +47,7 @@ export const StateContext = ({ children }) => {
     });
   };
 
-  return <Context.Provider value={{ qty, incQty, decQty, onAdd, totalPrice, totalQuantities, cartItems, showCart, setShowCart, totalQuantities }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ qty, incQty, decQty, onAdd, totalPrice, totalQuantities, cartItems, showCart, setShowCart, totalQuantities, onRemove }}>{children}</Context.Provider>;
 };
 
 export const useStateContext = () => useContext(Context);
