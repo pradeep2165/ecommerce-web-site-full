@@ -1,6 +1,5 @@
-import { validateConfig } from "next/dist/server/config-shared";
 import { createContext, useContext, useState } from "react";
-
+import { toast } from "react-hot-toast";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
@@ -35,6 +34,7 @@ export const StateContext = ({ children }) => {
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
     }
+    toast.success(`${qty} ${product.name} added to the cart`);
   };
 
   const onRemove = (product) => {
