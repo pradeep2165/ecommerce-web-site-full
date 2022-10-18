@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useStateContext } from "../context/StateContext";
 import { AiOutlineLeft, AiOutlineMinus, AiOutlinePlus, AiOutlineShopping, onRemove } from "react-icons/ai";
 
@@ -7,9 +7,10 @@ import Link from "next/link";
 import { urlFor } from "../lib/client";
 
 const Cart = () => {
-  const { setShowCart, cartItems, totalPrice, onRemove } = useStateContext();
+  const cartRef = useRef();
+  const { setShowCart, cartItems, totalPrice, onRemove, toggleCartItemQuantity } = useStateContext();
   return (
-    <div className="cart-wrapper">
+    <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button type="button" className="cart-heading" onClick={() => setShowCart(false)}>
           <AiOutlineLeft />
@@ -40,11 +41,11 @@ const Cart = () => {
                   <div className="flex bottom">
                     <div>
                       <p className="quantity-desc">
-                        <span className="minus">
+                        <span className="minus" onClick={() => toggleCartItemQuantity(item._id, "dec")}>
                           <AiOutlineMinus />
                         </span>
                         <span className="num">{item.quantity}</span>
-                        <span className="plus">
+                        <span className="plus" onClick={() => toggleCartItemQuantity(item._id, "inc")}>
                           <AiOutlinePlus />
                         </span>
                       </p>
